@@ -6,8 +6,11 @@ import java.time.format.DateTimeFormatter;
 public class SalaryInfo {
     public String getSalaryInfo(String[] names, String[] data, String dateFrom, String dateTo) {
         int[] salaryPerPerson = new int[names.length];
+        final int in = 1;
+        final int ih = 2;
+        final int is = 3;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate df = LocalDate.parse(dateFrom, formatter);
         LocalDate dt = LocalDate.parse(dateTo, formatter);
 
@@ -17,8 +20,8 @@ public class SalaryInfo {
             LocalDate date = LocalDate.parse(res[0], formatter);
             if ((date.isEqual(df) || date.isAfter(df)) && (date.isEqual(dt) || date.isBefore(dt))) {
                 for (int i = 0; i < names.length; i++) {
-                    if (res[1].equals(names[i])) {
-                        salaryPerPerson[i] += Integer.parseInt(res[2]) * Integer.parseInt(res[3]);
+                    if (res[in].equals(names[i])) {
+                        salaryPerPerson[i] += Integer.parseInt(res[ih]) * Integer.parseInt(res[is]);
                         break;
                     }
                 }
@@ -30,7 +33,7 @@ public class SalaryInfo {
                 .append(dateFrom)
                 .append(" - ")
                 .append(dateTo)
-                .append("\n");
+                .append(System.lineSeparator());
 
         for (int i = 0; i < names.length; i++) {
             if (i == names.length - 1) {
@@ -42,7 +45,7 @@ public class SalaryInfo {
             stringBuilder.append(names[i])
                     .append(" - ")
                     .append(salaryPerPerson[i])
-                    .append("\n");
+                    .append(System.lineSeparator());
         }
 
         return stringBuilder.toString();
